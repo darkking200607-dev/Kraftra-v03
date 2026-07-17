@@ -1,4 +1,4 @@
-sexport default function Home() {
+export default function Home() {
   return (
     <main className="main">
       <h1>KRAFTRA</h1>
