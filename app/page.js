@@ -58,6 +58,35 @@ export default function Home() {
         </a>
       </section>
 
+      <section className="how-section">
+        <p className="eyebrow">the kraftra loop</p>
+        <h2 className="section-title">How It Works</h2>
+
+        <div className="steps-timeline">
+          <div className="step-item">
+            <span className="step-num">01</span>
+            <div className="step-text">
+              <h3>Create</h3>
+              <p>Sketch your own piece on our design canvas, or explore designs made by other creators.</p>
+            </div>
+          </div>
+          <div className="step-item">
+            <span className="step-num">02</span>
+            <div className="step-text">
+              <h3>Wear</h3>
+              <p>Order it stitched, pick it up thrifted, or grab it straight from the store — made yours.</p>
+            </div>
+          </div>
+          <div className="step-item">
+            <span className="step-num">03</span>
+            <div className="step-text">
+              <h3>Repeat</h3>
+              <p>Come back, remix, create again. Sell what you no longer wear and start a new loop.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="explore" className="cards">
         <Link href="/design" className="card">
           <span className="card-index">01</span>
@@ -82,7 +111,15 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <p>KRAFTRA — Create. Wear. Repeat.</p>
+        <p className="footer-brand">KRAFTRA</p>
+        <p className="footer-tag">Create. Wear. Repeat.</p>
+        <div className="footer-links">
+          <Link href="/design">Design</Link>
+          <Link href="/shop">Shop</Link>
+          <Link href="/thrift">Thrift</Link>
+          <Link href="/artists">Artists</Link>
+        </div>
+        <p className="footer-copy">© 2026 Kraftra. All rights reserved.</p>
       </footer>
     </main>
   );
