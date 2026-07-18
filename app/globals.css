@@ -16,6 +16,7 @@ a {
   text-decoration: none;
 }
 
+/* Navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -63,6 +64,7 @@ a {
   align-items: center;
 }
 
+/* Ambient glowing gold background */
 .glow-bg {
   position: fixed;
   top: -20%;
@@ -210,6 +212,7 @@ a {
   box-shadow: 0 0 30px rgba(202,162,75,0.5);
 }
 
+/* fade-in helper */
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -226,6 +229,7 @@ a {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Cards */
 .cards {
   position: relative;
   z-index: 1;
@@ -279,14 +283,130 @@ a {
   z-index: 1;
   width: 100%;
   text-align: center;
-  padding: 2rem;
-  color: #5c564c;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  padding: 3rem 1.5rem 2.5rem;
   border-top: 1px solid #1c1c1c;
 }
 
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  font-size: 1.3rem;
+  color: #f4efe6;
+}
+
+.footer-tag {
+  margin-top: 0.4rem;
+  color: #caa24b;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.6rem;
+  font-size: 0.8rem;
+}
+
+.footer-links a {
+  color: #b8b0a2;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #caa24b;
+}
+
+.footer-copy {
+  margin-top: 1.8rem;
+  color: #4a463f;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* How It Works */
+.how-section {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+  padding: 2rem 1.5rem 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: #f4efe6;
+  margin-top: 0.3rem;
+  margin-bottom: 3rem;
+}
+
+.steps-timeline {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.steps-timeline::before {
+  content: "";
+  position: absolute;
+  left: 23px;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(#caa24b, #262626);
+}
+
+.step-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+  text-align: left;
+}
+
+.step-num {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #caa24b;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  color: #caa24b;
+}
+
+.step-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #f4efe6;
+  margin-bottom: 0.4rem;
+}
+
+.step-text p {
+  color: #a8a099;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* ---- Sub pages (Design, Shop, Thrift, Artists) ---- */
 .page-hero {
   position: relative;
   z-index: 1;
@@ -331,6 +451,7 @@ a {
   color: #7a7368;
 }
 
+/* Design canvas mock */
 .canvas-mock {
   width: 100%;
   max-width: 520px;
@@ -361,6 +482,7 @@ a {
   font-size: 0.85rem;
 }
 
+/* Shop / Thrift grids */
 .placeholder-grid {
   width: 100%;
   margin-top: 2.5rem;
@@ -410,6 +532,7 @@ a {
   font-weight: 600;
 }
 
+/* Artist profile mock */
 .profile-mock {
   margin-top: 2.5rem;
   display: flex;
