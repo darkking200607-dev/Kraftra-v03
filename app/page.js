@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="main">
@@ -57,26 +59,26 @@ export default function Home() {
       </section>
 
       <section id="explore" className="cards">
-        <div className="card">
+        <Link href="/design" className="card">
           <span className="card-index">01</span>
           <h2>Design</h2>
           <p>Create your own clothes &amp; shoes, stitch by stitch, idea by idea.</p>
-        </div>
-        <div className="card">
+        </Link>
+        <Link href="/shop" className="card">
           <span className="card-index">02</span>
           <h2>Shop</h2>
           <p>Buy designs made by fellow creators or browse curated store pieces.</p>
-        </div>
-        <div className="card">
+        </Link>
+        <Link href="/thrift" className="card">
           <span className="card-index">03</span>
           <h2>Thrift</h2>
           <p>Give pre-loved fashion a second life — buy and sell thrifted pieces.</p>
-        </div>
-        <div className="card">
+        </Link>
+        <Link href="/artists" className="card">
           <span className="card-index">04</span>
           <h2>Artists</h2>
           <p>Build your profile, upload your designs, and earn commission on every sale.</p>
-        </div>
+        </Link>
       </section>
 
       <footer className="footer">
