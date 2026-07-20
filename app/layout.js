@@ -1,5 +1,5 @@
 import "./globals.css";
-import Link from "next/link";
+import Navbar from "./Navbar";
 
 export const metadata = {
   title: "Kraftra — Create. Wear. Repeat.",
@@ -18,15 +18,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <nav className="navbar">
-          <Link href="/" className="nav-logo">KRAFTRA</Link>
-          <div className="nav-links">
-            <Link href="/design">Design</Link>
-            <Link href="/shop">Shop</Link>
-            <Link href="/thrift">Thrift</Link>
-            <Link href="/artists">Artists</Link>
-          </div>
-        </nav>
+        <Navbar />
         {children}
       </body>
     </html>
