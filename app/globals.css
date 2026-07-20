@@ -776,3 +776,35 @@ a {
   color: #caa24b;
   box-shadow: none;
 }
+/* ---- Filter tabs (Shop / Thrift) ---- */
+.filter-tabs {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.filter-tab {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #b8b0a2;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.filter-tab:hover {
+  border-color: #caa24b;
+  color: #caa24b;
+}
+
+.filter-tab.active {
+  background: #caa24b;
+  border-color: #caa24b;
+  color: #0a0a0a;
+}
