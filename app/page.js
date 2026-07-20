@@ -1,4 +1,19 @@
 import Link from "next/link";
+import ShoeCustomizer from "./ShoeCustomizer";
+
+const featured = [
+  { name: "Sunset Bomber", by: "@aria.made" },
+  { name: "Origami Sneakers", by: "@kenji.designs" },
+  { name: "Retro Varsity", by: "@noor.studio" },
+  { name: "Neon Cargo", by: "@dev.crafts" },
+];
+
+const pillars = [
+  { icon: "✦", title: "Own Your Style", text: "No two pieces alike — what you create is truly yours." },
+  { icon: "♻", title: "Sustainable by Design", text: "Thrift, remix, and reduce waste. Fashion that circles back." },
+  { icon: "✂", title: "Made, Not Mass-Produced", text: "Every piece starts as someone's idea, not a factory line." },
+  { icon: "✧", title: "Creators Get Paid", text: "Artists earn commission every time their design sells." },
+];
 
 export default function Home() {
   return (
@@ -53,9 +68,19 @@ export default function Home() {
           design it, wear it, thrift it, sell it.
         </p>
 
-        <a href="#explore" className="cta fade-in delay-6">
+        <a href="#try-it" className="cta fade-in delay-6">
           Explore Kraftra
         </a>
+      </section>
+
+      <section id="try-it" className="how-section">
+        <p className="eyebrow">try it yourself</p>
+        <h2 className="section-title">Pick a Colourway</h2>
+        <p className="page-sub" style={{ marginTop: "-1.5rem", marginBottom: "0.5rem" }}>
+          A small taste of the design studio — tap a shade below.
+        </p>
+        <ShoeCustomizer />
+        <span className="badge-soon">Full design studio — coming soon</span>
       </section>
 
       <section className="how-section">
@@ -87,27 +112,68 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="explore" className="cards">
-        <Link href="/design" className="card">
-          <span className="card-index">01</span>
-          <h2>Design</h2>
-          <p>Create your own clothes &amp; shoes, stitch by stitch, idea by idea.</p>
-        </Link>
-        <Link href="/shop" className="card">
-          <span className="card-index">02</span>
-          <h2>Shop</h2>
-          <p>Buy designs made by fellow creators or browse curated store pieces.</p>
-        </Link>
-        <Link href="/thrift" className="card">
-          <span className="card-index">03</span>
-          <h2>Thrift</h2>
-          <p>Give pre-loved fashion a second life — buy and sell thrifted pieces.</p>
-        </Link>
-        <Link href="/artists" className="card">
-          <span className="card-index">04</span>
-          <h2>Artists</h2>
-          <p>Build your profile, upload your designs, and earn commission on every sale.</p>
-        </Link>
+      <section className="how-section">
+        <p className="eyebrow">from the community</p>
+        <h2 className="section-title">Featured Designs</h2>
+
+        <div className="placeholder-grid">
+          {featured.map((item) => (
+            <div className="placeholder-card" key={item.name}>
+              <div className="placeholder-thumb" />
+              <h3>{item.name}</h3>
+              <p className="placeholder-by">{item.by}</p>
+            </div>
+          ))}
+        </div>
+        <span className="badge-soon">Community uploads — coming soon</span>
+      </section>
+
+      <section className="how-section">
+        <p className="eyebrow">why kraftra</p>
+        <h2 className="section-title">Fashion, Rewritten</h2>
+
+        <div className="pillars-grid">
+          {pillars.map((p) => (
+            <div className="pillar" key={p.title}>
+              <span className="pillar-icon">{p.icon}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="explore" className="cards-section">
+        <p className="eyebrow">explore kraftra</p>
+        <h2 className="section-title">Four Ways In</h2>
+        <div className="cards">
+          <Link href="/design" className="card">
+            <span className="card-index">01</span>
+            <h2>Design</h2>
+            <p>Create your own clothes &amp; shoes, stitch by stitch, idea by idea.</p>
+          </Link>
+          <Link href="/shop" className="card">
+            <span className="card-index">02</span>
+            <h2>Shop</h2>
+            <p>Buy designs made by fellow creators or browse curated store pieces.</p>
+          </Link>
+          <Link href="/thrift" className="card">
+            <span className="card-index">03</span>
+            <h2>Thrift</h2>
+            <p>Give pre-loved fashion a second life — buy and sell thrifted pieces.</p>
+          </Link>
+          <Link href="/artists" className="card">
+            <span className="card-index">04</span>
+            <h2>Artists</h2>
+            <p>Build your profile, upload your designs, and earn commission on every sale.</p>
+          </Link>
+        </div>
+      </section>
+
+      <section className="cta-band">
+        <h2>Ready to start your loop?</h2>
+        <p>Your first design is one click away.</p>
+        <Link href="/design" className="cta cta-solid">Start Creating</Link>
       </section>
 
       <footer className="footer">
