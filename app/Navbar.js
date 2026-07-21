@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { supabase } from "./supabaseClient";
 
 const links = [
   { href: "/design", label: "Design" },
@@ -13,7 +14,25 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data?.user ?? null));
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setOpen(false);
+    router.push("/");
+  };
 
   return (
     <nav className="navbar">
@@ -42,6 +61,20 @@ export default function Navbar() {
             {l.label}
           </Link>
         ))}
+
+        {user ? (
+          <button type="button" className="nav-logout" onClick={handleLogout}>
+            Log Out
+          </button>
+        ) : (
+          <Link
+            href="/login"
+            className={pathname === "/login" ? "active" : ""}
+            onClick={() => setOpen(false)}
+          >
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );
