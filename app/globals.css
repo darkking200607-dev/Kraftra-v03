@@ -910,3 +910,34 @@ a {
 .nav-logout:hover {
   color: #caa24b;
 }
+/* ---- Password show/hide toggle ---- */
+.password-field {
+  position: relative;
+  display: flex;
+}
+
+.password-field input {
+  flex: 1;
+  padding-right: 4rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #7a7368;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #caa24b;
+}
