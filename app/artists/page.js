@@ -11,12 +11,7 @@ const perks = [
   { icon: "🎨", title: "Full Ownership", text: "Your designs, your rules, your credit." },
 ];
 
-const creators = [
-  { name: "@aria.made", tag: "Streetwear" },
-  { name: "@kenji.designs", tag: "Footwear" },
-  { name: "@noor.studio", tag: "Accessories" },
-  { name: "@dev.crafts", tag: "Graphic Art" },
-];
+const uploadCategories = ["Tees", "Hoodies", "Shoes", "Accessories"];
 
 export default function Artists() {
   const [user, setUser] = useState(null);
@@ -25,6 +20,23 @@ export default function Artists() {
   const [draftName, setDraftName] = useState("");
   const [loading, setLoading] = useState(true);
   const [saveError, setSaveError] = useState("");
+
+  const [myDesigns, setMyDesigns] = useState([]);
+  const [showUpload, setShowUpload] = useState(false);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState(uploadCategories[0]);
+  const [uploadError, setUploadError] = useState("");
+  const [uploading, setUploading] = useState(false);
+
+  const loadDesigns = async (userId) => {
+    const { data } = await supabase
+      .from("designs")
+      .select("*")
+      .eq("artist_id", userId)
+      .order("created_at", { ascending: false });
+    setMyDesigns(data || []);
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -43,6 +55,7 @@ export default function Artists() {
           setUsername(profile.username);
           setDraftName(profile.username);
         }
+        await loadDesigns(currentUser.id);
       }
       setLoading(false);
     };
@@ -52,12 +65,10 @@ export default function Artists() {
   const handleSave = async () => {
     setSaveError("");
     const cleaned = draftName.trim().toLowerCase().replace(/\s+/g, "");
-
     if (!cleaned) {
       setSaveError("Username can't be empty.");
       return;
     }
-
     const { error } = await supabase
       .from("profiles")
       .update({ username: cleaned })
@@ -69,6 +80,41 @@ export default function Artists() {
       setUsername(cleaned);
       setEditing(false);
     }
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    setUploadError("");
+
+    const priceNum = parseFloat(price);
+    if (!title.trim() || !priceNum || priceNum <= 0) {
+      setUploadError("Add a title and a valid price.");
+      return;
+    }
+
+    setUploading(true);
+    const { error } = await supabase.from("designs").insert({
+      artist_id: user.id,
+      artist_username: username,
+      title: title.trim(),
+      price: priceNum,
+      category,
+    });
+    setUploading(false);
+
+    if (error) {
+      setUploadError(error.message);
+    } else {
+      setTitle("");
+      setPrice("");
+      setShowUpload(false);
+      await loadDesigns(user.id);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    await supabase.from("designs").delete().eq("id", id);
+    await loadDesigns(user.id);
   };
 
   return (
@@ -110,9 +156,7 @@ export default function Artists() {
                   placeholder="username"
                 />
                 <div className="username-edit-actions">
-                  <button type="button" className="filter-tab active" onClick={handleSave}>
-                    Save
-                  </button>
+                  <button type="button" className="filter-tab active" onClick={handleSave}>Save</button>
                   <button
                     type="button"
                     className="filter-tab"
@@ -132,15 +176,67 @@ export default function Artists() {
               </>
             )}
             <div className="profile-stats">
-              <div><strong>0</strong><span>Designs</span></div>
+              <div><strong>{myDesigns.length}</strong><span>Designs</span></div>
               <div><strong>0</strong><span>Followers</span></div>
               <div><strong>0</strong><span>Following</span></div>
             </div>
+
+            <button
+              type="button"
+              className="cta cta-solid"
+              style={{ marginTop: "1.8rem" }}
+              onClick={() => setShowUpload(!showUpload)}
+            >
+              {showUpload ? "Close" : "Upload a Design"}
+            </button>
+
+            {showUpload && (
+              <form className="auth-form" onSubmit={handleUpload} style={{ marginTop: "1.8rem" }}>
+                <label>
+                  Title
+                  <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                </label>
+                <label>
+                  Price (₹)
+                  <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} min="1" required />
+                </label>
+                <label>
+                  Category
+                  <select value={category} onChange={(e) => setCategory(e.target.value)} className="category-select">
+                    {uploadCategories.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </label>
+                {uploadError && <p className="auth-error">{uploadError}</p>}
+                <button type="submit" className="cta cta-solid auth-submit" disabled={uploading}>
+                  {uploading ? "Uploading…" : "Publish Design"}
+                </button>
+              </form>
+            )}
           </div>
         )}
-
-        <span className="badge-soon">Design uploads — coming soon</span>
       </section>
+
+      {!loading && user && myDesigns.length > 0 && (
+        <section className="how-section">
+          <p className="eyebrow">your work</p>
+          <h2 className="section-title">Your Designs</h2>
+          <div className="placeholder-grid">
+            {myDesigns.map((d) => (
+              <div className="placeholder-card" key={d.id}>
+                <div className="placeholder-thumb" />
+                <h3>{d.title}</h3>
+                <p className="placeholder-by">{d.category}</p>
+                <p className="placeholder-price">₹{d.price}</p>
+                <button type="button" className="back-link" style={{ marginTop: "0.6rem" }} onClick={() => handleDelete(d.id)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="how-section">
         <p className="eyebrow">why join</p>
@@ -151,20 +247,6 @@ export default function Artists() {
               <span className="pillar-icon">{p.icon}</span>
               <h3>{p.title}</h3>
               <p>{p.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="how-section">
-        <p className="eyebrow">the community</p>
-        <h2 className="section-title">Kraftra Creators</h2>
-        <div className="placeholder-grid">
-          {creators.map((c) => (
-            <div className="placeholder-card" key={c.name}>
-              <div className="placeholder-thumb" />
-              <h3>{c.name}</h3>
-              <p className="placeholder-by">{c.tag}</p>
             </div>
           ))}
         </div>
