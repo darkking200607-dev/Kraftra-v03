@@ -941,3 +941,35 @@ a {
 .password-toggle:hover {
   color: #caa24b;
 }
+/* ---- Username edit (Artists page) ---- */
+.username-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+.username-edit input {
+  width: 100%;
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  color: #f4efe6;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  outline: none;
+}
+
+.username-edit input:focus {
+  border-color: #caa24b;
+}
+
+.username-edit-actions {
+  display: flex;
+  gap: 0.6rem;
+}
