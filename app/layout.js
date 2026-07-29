@@ -1,5 +1,7 @@
 import "./globals.css";
 import Navbar from "./Navbar";
+import { CartProvider } from "./cartContext";
+import CartDrawer from "./CartDrawer";
 
 export const metadata = {
   title: "Kraftra — Create. Wear. Repeat.",
@@ -18,8 +20,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Navbar />
-        {children}
+        <CartProvider>
+          <Navbar />
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );
