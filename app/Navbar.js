@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
+import { useCart } from "./cartContext";
 
 const links = [
   { href: "/design", label: "Design" },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const { count, setOpen: setCartOpen } = useCart();
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data?.user ?? null));
@@ -39,6 +41,16 @@ export default function Navbar() {
       <Link href="/" className="nav-logo" onClick={() => setOpen(false)}>
         KRAFTRA
       </Link>
+
+      <button
+        type="button"
+        className="cart-toggle"
+        onClick={() => setCartOpen(true)}
+        aria-label="Open cart"
+      >
+        🛍️
+        {count > 0 && <span className="cart-badge">{count}</span>}
+      </button>
 
       <button
         className="nav-toggle"
