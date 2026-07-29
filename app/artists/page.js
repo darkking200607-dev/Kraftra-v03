@@ -225,7 +225,10 @@ export default function Artists() {
           <div className="placeholder-grid">
             {myDesigns.map((d) => (
               <div className="placeholder-card" key={d.id}>
-                <div className="placeholder-thumb" />
+                <div
+                  className="placeholder-thumb"
+                  style={d.color ? { background: `linear-gradient(135deg, ${d.color}33, ${d.color}11)` } : undefined}
+                />
                 <h3>{d.title}</h3>
                 <p className="placeholder-by">{d.category}</p>
                 <p className="placeholder-price">₹{d.price}</p>
