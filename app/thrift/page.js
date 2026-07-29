@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
-
+import { useCart } from "../cartContext";
 const staticItems = [
   { id: "t1", title: "Vintage Denim Jacket", price: 999, condition: "Gently used", category: "Outerwear", seller_username: "Kraftra Studio" },
   { id: "t2", title: "Retro Band Tee", price: 499, condition: "Well loved", category: "Tees", seller_username: "Kraftra Studio" },
@@ -37,7 +37,7 @@ export default function Thrift() {
   const [category, setCategory] = useState("Tees");
   const [sellError, setSellError] = useState("");
   const [selling, setSelling] = useState(false);
-
+const { addToCart } = useCart();
   const loadAll = async (userId) => {
     const { data } = await supabase
       .from("thrift_items")
@@ -140,14 +140,17 @@ export default function Thrift() {
                 <h3>{item.title}</h3>
                 <p className="placeholder-by">{item.condition}</p>
                 <p className="placeholder-price">₹{item.price}</p>
+                <button type="button" className="add-cart-btn" onClick={() => addToCart(item)}>
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>
         )}
 
-        {user ? (
-          <>
-            <button
+        {user ? (    
+          
+          <button
               type="button"
               className="cta cta-solid"
               style={{ marginTop: "2.5rem" }}
