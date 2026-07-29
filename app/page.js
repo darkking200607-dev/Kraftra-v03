@@ -1,11 +1,15 @@
-import Link from "next/link";
-import ShoeCustomizer from "./ShoeCustomizer";
+"use client";
 
-const featured = [
-  { name: "Sunset Bomber", by: "@aria.made" },
-  { name: "Origami Sneakers", by: "@kenji.designs" },
-  { name: "Retro Varsity", by: "@noor.studio" },
-  { name: "Neon Cargo", by: "@dev.crafts" },
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import ShoeCustomizer from "./ShoeCustomizer";
+import { supabase } from "./supabaseClient";
+
+const fallbackFeatured = [
+  { id: "f1", title: "Sunset Bomber", artist_username: "aria.made" },
+  { id: "f2", title: "Origami Sneakers", artist_username: "kenji.designs" },
+  { id: "f3", title: "Retro Varsity", artist_username: "noor.studio" },
+  { id: "f4", title: "Neon Cargo", artist_username: "dev.crafts" },
 ];
 
 const pillars = [
@@ -16,6 +20,20 @@ const pillars = [
 ];
 
 export default function Home() {
+  const [featured, setFeatured] = useState(fallbackFeatured);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase
+        .from("designs")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(4);
+      if (data && data.length > 0) setFeatured(data);
+    };
+    load();
+  }, []);
+
   return (
     <main className="main">
       <div className="glow-bg" />
@@ -118,10 +136,12 @@ export default function Home() {
 
         <div className="placeholder-grid">
           {featured.map((item) => (
-            <div className="placeholder-card" key={item.name}>
+            <div className="placeholder-card" key={item.id}>
               <div className="placeholder-thumb" />
-              <h3>{item.name}</h3>
-              <p className="placeholder-by">{item.by}</p>
+              <h3>{item.title}</h3>
+              <p className="placeholder-by">
+                {item.artist_username ? `@${item.artist_username}` : ""}
+              </p>
             </div>
           ))}
         </div>
