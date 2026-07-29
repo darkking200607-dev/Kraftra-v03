@@ -64,7 +64,10 @@ export default function Shop() {
           <div className="placeholder-grid">
             {filtered.map((item) => (
               <div className="placeholder-card" key={item.id}>
-                <div className="placeholder-thumb" />
+                <div
+                  className="placeholder-thumb"
+                  style={item.color ? { background: `linear-gradient(135deg, ${item.color}33, ${item.color}11)` } : undefined}
+                />
                 <h3>{item.title}</h3>
                 <p className="placeholder-by">
                   {item.artist_username === "Kraftra Studio" ? "Kraftra Studio" : `@${item.artist_username}`}
